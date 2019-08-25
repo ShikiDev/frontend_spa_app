@@ -6,12 +6,6 @@ namespace Curl;
 class CurlWorker{
     public static $link = 'https://www.sknt.ru/job/frontend/data.json';
 
-    /*public static function parse($data){
-
-        return $data;
-    }*/
-
-
     /**
      * @return mixed
      */
@@ -57,8 +51,6 @@ class CurlWorker{
 
     private static function parseDataToMyFormat($result = array()){
         $data = array();
-        $tmp = array();
-
         if(empty($result) || (!empty($result) and empty($result['data']))) return $result;
 
         $tmp = $result['data'];
@@ -72,7 +64,7 @@ class CurlWorker{
             $tariff['price_add'] = !empty($t_array->speed)? $t_array->speed : '';
             $tariff['free_options'] = !empty($t_array->free_options) ? $t_array->free_options : '';
             if (gettype($tariff['free_options']) == 'string') $tariff['free_options'] = empty($tariff['free_options']) ? $tariff['free_options'] : ' ';
-            else $tariff['free_options'] = implode("<br>", !empty($tariff['free_options']) ? $tariff['free_options'] : '');
+            else $tariff['free_options'] = implode("\n", !empty($tariff['free_options']) ? $tariff['free_options'] : '');
             $tariff['class_name'] = self::setColorByTariffName($tariff['name']);
             $price_array = array();
             $tariff_types['name'] = $tariff['name'];
